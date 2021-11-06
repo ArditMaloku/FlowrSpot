@@ -15,5 +15,5 @@
         </modal-component>
     </div>
 </template>
-<script src="./Login" lang="ts"></script>
+<script src="./Login.ts" lang="ts"></script>
 <style src="./Login.scss" lang="scss"></style>
