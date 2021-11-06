@@ -1,0 +1,17 @@
+@import '@/assets/styles/lib';
+
+.Button {
+    background-image: $buttonBackground;
+    box-shadow: 0px 15px 20px rgba(234, 168, 159, 0.2);
+    border-radius: 3px;
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 14px;
+    text-align: center;
+    color: #fff;
+    padding: 18px;
+    border: none;
+    cursor: pointer;
+}

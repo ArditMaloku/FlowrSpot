@@ -1,0 +1,58 @@
+@import '@/assets/styles/lib';
+
+.Hero {
+    position: relative;
+    &__image {
+        width: 100%;
+        height: 500px;
+        object-fit: cover;
+    }
+    &__content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        .Hero__title {
+            font-weight: 600;
+            font-family: 'Montserrat';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 40px;
+            line-height: 40px;
+            text-align: center;
+            color: #ffffff;
+        }
+        .Hero__description {
+            font-family: Playfair Display;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 17px;
+            line-height: 17px;
+            text-align: center;
+            color: #ffffff;
+            mix-blend-mode: normal;
+            opacity: 0.7;
+            margin-top: 15px;
+        }
+        .Hero__searchInput {
+            background: #ffffff;
+            box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.05);
+            border: 0;
+            border-radius: 3px;
+            width: 100%;
+            padding: 15px;
+            margin-top: 40px;
+            height: 70px;
+            color: $textColor;
+            font-family: 'Ubuntu';
+            font-weight: 300;
+            font-size: 18px;
+            outline: none;
+        }
+    }
+    @include tablet {
+        &__content {
+            width: 80%;
+        }
+    }
+}

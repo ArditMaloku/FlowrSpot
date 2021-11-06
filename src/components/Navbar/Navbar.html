@@ -1,0 +1,27 @@
+<nav class="Navbar">
+    <a href="" class="Navbar__logo">
+        <img src="@/assets/logo.svg" alt="" />
+    </a>
+    <div class="Navbar__collapse collapse">
+        <img
+            src="@/assets/icons/mm_hamburger.svg"
+            alt="hamburger"
+            class="Navbar__hamburger"
+            @click="showMenu = !showMenu"
+        />
+        <ul class="Navbar__list Navbar__listActive" v-if="showMenu">
+            <li>Flowers</li>
+            <li>Latest Sightings</li>
+            <li>Favorites</li>
+            <template v-if="$store.state.users.user === null">
+                <li><login-component /></li>
+                <li>
+                    <register-component />
+                </li>
+            </template>
+            <template v-else>
+                <user-info-component />
+            </template>
+        </ul>
+    </div>
+</nav>

@@ -1,0 +1,39 @@
+@import '@/assets/styles/lib';
+
+.Register {
+    .Modal__container {
+        width: 440px;
+    }
+    &__button {
+        width: 140px;
+        height: 40px;
+        border-radius: 50px;
+        line-height: 0;
+        border: none;
+        background-image: $buttonBackground;
+        color: white;
+        font-family: 'Montserrat';
+    }
+    &__createAccountButton {
+        width: 100%;
+        margin-top: 10px;
+    }
+    &__form {
+        .Input {
+            display: flex;
+            flex-direction: column;
+        }
+        .Input:first-child {
+            float: left;
+            margin-right: 2%;
+        }
+        .Input:first-child,
+        .Input:nth-child(2) {
+            width: 49%;
+        }
+    }
+    &__errorMessage {
+        color: #f23648;
+        cursor: default;
+    }
+}

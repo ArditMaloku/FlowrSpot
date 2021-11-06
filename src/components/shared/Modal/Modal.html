@@ -1,0 +1,15 @@
+<transition name="Modal">
+    <div class="Modal__mask">
+        <div class="Modal__wrapper">
+            <div class="Modal__container" ref="modalRef">
+                <div class="Modal__header" v-if="$slots.header">
+                    <slot name="header"></slot>
+                </div>
+
+                <div class="Modal__body">
+                    <slot name="body"></slot>
+                </div>
+            </div>
+        </div>
+    </div>
+</transition>

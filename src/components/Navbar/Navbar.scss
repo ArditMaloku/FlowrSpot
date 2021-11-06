@@ -1,0 +1,62 @@
+@import '@/assets/styles/lib';
+
+.Navbar {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &__logo {
+        width: 169px;
+        height: 30px;
+        margin-left: 15px;
+    }
+    &__list {
+        align-items: center;
+        list-style: none;
+        display: flex;
+        li {
+            cursor: pointer;
+            color: $textColor;
+            padding: 2px 20px;
+            font-weight: 500;
+            font-size: 14px;
+            font-family: 'Montserrat';
+            font-style: normal;
+        }
+    }
+    &__avatar {
+        vertical-align: middle;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+    &__hamburger {
+        display: none;
+    }
+    @include tablet {
+        &__collapse {
+        }
+        &__list {
+            display: none;
+            width: 100%;
+            position: absolute;
+            top: 80px;
+            left: 0;
+            z-index: 200;
+            width: 100%;
+            background: white;
+            li {
+                padding: 20px;
+                width: 100%;
+            }
+        }
+        &__listActive {
+            display: block;
+        }
+        &__hamburger {
+            display: block;
+            margin-right: 20px;
+        }
+    }
+}

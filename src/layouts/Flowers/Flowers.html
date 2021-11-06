@@ -1,0 +1,5 @@
+<div class="Flowers">
+    <div v-for="flower in flowers" :key="flower.id" class="Flower" :class="flower.favorite ? 'Flower__favorite' : ''">
+        <FlowerItem :flower="flower" />
+    </div>
+</div>

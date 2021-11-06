@@ -1,0 +1,115 @@
+@import '@/assets/styles/lib';
+
+@mixin favoriteStar {
+    background-image: $buttonBackground;
+    .Flower__star {
+        background: #fff;
+        mask: url(../../assets/icons/pl-icon-star.svg) no-repeat center / contain;
+        -webkit-mask: url(../../assets/icons/pl-icon-star.svg) no-repeat center / contain;
+    }
+}
+@mixin favoriteSightings {
+    background-image: $buttonBackground;
+}
+
+.Flower {
+    width: 100%;
+    height: 350px;
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+    margin: 0 1rem;
+    &__image {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+    &__photoShadow {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        box-shadow: inset 0 -9em 30px -10px rgb(0 0 0 / 50%);
+    }
+    &__bottom {
+        position: absolute;
+        bottom: 20px;
+        text-align: center;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+    &__starWrapper {
+        cursor: pointer;
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        width: 24.86px;
+        height: 24.86px;
+        background-color: #fff;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+        align-items: center;
+        &:hover {
+            @include favoriteStar;
+        }
+        .Flower__star {
+            width: 10.77px;
+            height: 9.94px;
+            background: url(../../assets/icons/pl-icon-star.svg) no-repeat center / contain;
+        }
+    }
+    &__title {
+        font-family: 'Ubuntu';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 15px;
+        text-align: center;
+        color: #fff;
+    }
+    &__description {
+        font-family: Ubuntu;
+        font-style: italic;
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 12px;
+        text-align: center;
+        color: #fff;
+        mix-blend-mode: normal;
+        opacity: 0.7;
+        margin-top: 7px;
+    }
+    &__sightings {
+        font-family: Ubuntu;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 12px;
+        text-align: center;
+        color: #fff;
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 20px;
+        margin-top: 17px;
+        padding: 10px;
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 20px;
+    }
+    &__favorite {
+        .Flower__starWrapper {
+            @include favoriteStar;
+        }
+        .Flower__sightings {
+            @include favoriteSightings;
+        }
+    }
+    @include tablet {
+        height: 290px;
+    }
+    @include mobile {
+        height: 210px;
+    }
+}
