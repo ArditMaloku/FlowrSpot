@@ -1,7 +1,7 @@
 <img :src="flower.profile_picture" alt="flower" class="Flower__image" />
 <div class="Flower__photoShadow"></div>
 
-<div class="Flower__starWrapper">
+<div class="Flower__starWrapper" v-if="$store.state.users.user !== null">
     <div class="Flower__star"></div>
 </div>
 <div class="Flower__bottom">

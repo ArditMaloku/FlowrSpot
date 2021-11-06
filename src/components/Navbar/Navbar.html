@@ -13,13 +13,16 @@
             <li>Flowers</li>
             <li>Latest Sightings</li>
             <li>Favorites</li>
-            <template v-if="$store.state.users.user === null">
-                <li><login-component /></li>
+            <div class="Navbar__userProfile" :class="{ 'displayNone': $store.state.users.user !== null }" v-if="true">
                 <li>
-                    <register-component />
+                    <a @click="loginModalVisible = true" class="Login__text" buttonText="Login to your Account">Login</a>
+                    <login-component :modalVisible="loginModalVisible" @hideModal="loginModalVisible = false"/>
                 </li>
-            </template>
-            <template v-else>
+                <li>
+                    <signup-component />
+                </li>
+            </div>
+            <template v-if="$store.state.users.user !== null">
                 <user-info-component />
             </template>
         </ul>

@@ -1,10 +1,12 @@
-import { reactive, ref } from '@vue/reactivity';
+import { ref } from '@vue/reactivity';
 import { defineComponent } from '@vue/runtime-core';
 import { useStore } from 'vuex';
 import ModalComponent from '../shared/Modal/index.vue';
 import InputComponent from '../shared/Input/index.vue';
 import ButtonComponent from '../shared/Button/index.vue';
+import UserInfoModalComponent from '../UserInfoModal/index.vue';
 import LoginPayloadInterface from '@/types/LoginPayloadInterface';
+import LoginSignupResponseInterface from '@/types/LoginSignupResponseInterface';
 import StoreNames from '@/store/enums/StoreNames';
 import { UserActionTypes } from '@/store/modules/users/actions';
 import { Form } from 'vee-validate';
@@ -16,9 +18,17 @@ export default defineComponent({
         ModalComponent,
         InputComponent,
         ButtonComponent,
+        UserInfoModalComponent,
         Form,
     },
-    setup() {
+    props: {
+        modalVisible: {
+            type: Boolean,
+            required: true
+        }
+    },
+    emits: ['hideModal'],
+    setup(_, { emit }) {
         const store = useStore();
 
         const schema = Yup.object().shape({
@@ -26,16 +36,29 @@ export default defineComponent({
             password: Yup.string().min(6).required(),
         });
 
-        const modalVisible = ref(false);
+        const successModalVisible = ref(false);
+        const profileModalVisible = ref(false);
+        const errorMessage = ref(false);
 
         const onSubmit = (form: LoginPayloadInterface) => {
-            store.dispatch(StoreNames.USERS + '/' + UserActionTypes.LOGIN, form);
+            errorMessage.value = false;
+            store
+                .dispatch(StoreNames.USERS + '/' + UserActionTypes.LOGIN, form)
+                .then((response: LoginSignupResponseInterface) => {
+                    emit('hideModal');
+                    successModalVisible.value = true;
+                })
+                .catch((error: any) => {
+                    errorMessage.value = error.response.data.error;
+                });
         };
 
         return {
-            modalVisible,
+            successModalVisible,
+            profileModalVisible,
             onSubmit,
             schema,
+            errorMessage,
         };
     },
 });

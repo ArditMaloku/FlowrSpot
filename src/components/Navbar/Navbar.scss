@@ -6,6 +6,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    &__userProfile {
+        display: contents;
+    }
     &__logo {
         width: 169px;
         height: 30px;

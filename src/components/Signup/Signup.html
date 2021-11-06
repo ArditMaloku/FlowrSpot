@@ -1,0 +1,35 @@
+<div class="Signup">
+    <button-component @click="modalVisible = true" class="Signup__button" :buttonText="'New Account'" />
+
+    <modal-component v-if="modalVisible" @clickOutside="hideModal()" otherClasses="Signup">
+        <template v-slot:header>
+            <h1>Create an Account</h1>
+        </template>
+        <template v-slot:body>
+            <Form class="Signup__form" @submit="onSubmit" :validation-schema="schema">
+                <input-component type="text" name="first_name" label="First Name" />
+                <input-component type="text" name="last_name" label="Last Name" />
+                <input-component type="text" name="date_of_birth" label="Date of Birth" />
+                <input-component type="email" name="email" label="Email Address" />
+                <input-component type="password" name="password" label="Password" />
+
+                <div class="Signup__errorMessage" v-if="errorMessage">{{ errorMessage }}</div>
+
+                <button-component class="Signup__createAccountButton" :buttonText="'Create Account'" />
+            </Form>
+        </template>
+    </modal-component>
+
+    <modal-component v-if="successModalVisible" @clickOutside="successModalVisible = false">
+        <template v-slot:header>
+            <h1>Congratulations! You have successfully signed up for FlowrSpot!</h1>
+        </template>
+        <template v-slot:body>
+            <div class="Login__successButtons">
+                <button-component buttonText="OK" @click="(successModalVisible = false), (loginModalVisible = true)" />
+            </div>
+        </template>
+    </modal-component>
+
+    <login-component :modalVisible="loginModalVisible" @hideModal="loginModalVisible = false"/>
+</div>

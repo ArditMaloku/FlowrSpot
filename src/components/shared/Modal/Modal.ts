@@ -7,7 +7,8 @@ export default defineComponent({
     props: {
         otherClasses: String,
     },
-    setup(props, { emit }) {
+    emits: ['clickOutside'],
+    setup(_, { emit }) {
         const modalRef = ref(null);
         onClickOutside(modalRef, (event) => {
             emit('clickOutside');

@@ -1,0 +1,37 @@
+<modal-component v-if="modalVisible" @clickOutside="$emit('hideModal')" otherClasses="UserInfo">
+    <template v-slot:body>
+        <div class="UserInfo__content">
+            <div className="UserInfo__avatar">
+                <img className="UserInfo__picture" src="@/assets/images/profile-holder.png" alt="UserInfo" />
+                <div className="UserInfo__name">
+                    {{ user?.first_name + ' ' + user?.last_name }}
+                    <div className="UserInfo__sightings">47 sightings</div>
+                </div>
+            </div>
+            <div class="UserInfo__profile">
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>First Name</th>
+                            <td>{{ user?.first_name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Last Name</th>
+                            <td>{{ user?.last_name }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Date of Birth</th>
+                            <td>May 1,1998</td>
+                        </tr>
+                        <tr>
+                            <th>Email Address</th>
+                            <td>email address</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button-component class="UserInfo__logout" :buttonText="'Logout'" @click="logout" />
+            </div>
+        </div>
+    </template>
+</modal-component>

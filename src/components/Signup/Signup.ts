@@ -1,36 +1,38 @@
-import UserService from '@/services/UserService';
-import LoginRegisterResponseInterface from '@/types/LoginRegisterResponseInterface';
-import { reactive, ref } from '@vue/reactivity';
+import { ref } from '@vue/reactivity';
 import { defineComponent } from '@vue/runtime-core';
 import { useStore } from 'vuex';
 import ModalComponent from '../shared/Modal/index.vue';
 import InputComponent from '../shared/Input/index.vue';
 import ButtonComponent from '../shared/Button/index.vue';
+import LoginComponent from '../Login/index.vue';
 import UserInterface from '@/types/UserInterface';
 import { Form } from 'vee-validate';
 import * as Yup from 'yup';
-import { parse, isDate } from 'date-fns';
 import StoreNames from '@/store/enums/StoreNames';
 import { UserActionTypes } from '@/store/modules/users/actions';
+import LoginSignupResponseInterface from '@/types/LoginSignupResponseInterface';
+import ValidateDateMixin from "@/mixins/ValidateDateMixin";
 
 export default defineComponent({
-    name: 'RegisterComponent',
+    name: 'SignupComponent',
     components: {
         ModalComponent,
         InputComponent,
         ButtonComponent,
+        LoginComponent,
         Form,
     },
+    mixins: [ValidateDateMixin],
     setup() {
         const store = useStore();
-
+        
         const schema = Yup.object().shape({
             first_name: Yup.string().required('First name is required'),
             last_name: Yup.string().required('Last name is required'),
             date_of_birth: Yup.string().test({
                 name: 'dateValidation',
                 test: function (date) {
-                    const isValid = validateDate(date!);
+                    const isValid = ValidateDateMixin.methods!.validateDate(date!);
                     if (isValid) return true;
 
                     return this.createError({
@@ -44,28 +46,35 @@ export default defineComponent({
         });
         const modalVisible = ref(false);
         const errorMessage = ref(false);
+        const successModalVisible = ref(false);
+        const loginModalVisible = ref(false);
 
         const onSubmit = (form: UserInterface) => {
             errorMessage.value = false;
 
-            store.dispatch(StoreNames.USERS + '/' + UserActionTypes.REGISTER, form).catch((error: any) => {
+            store.dispatch(StoreNames.USERS + '/' + UserActionTypes.SIGNUP, form)
+            .then((response: LoginSignupResponseInterface) => {
+                modalVisible.value = false;
+                successModalVisible.value = true;
+            })
+            .catch((error: any) => {
                 errorMessage.value = error.response.data.error;
             });
         };
 
-        const validateDate = (date: string) => {
-            const dateInput = new Date(date!).toString();
-            const formatedDate = parse(date!, 'MMMM d, yyyy', new Date()).toString();
+        const hideModal = () => {
+            modalVisible.value = false;
+            errorMessage.value = false;
+        }
 
-            if (dateInput === 'Invalid Date' || formatedDate === 'Invalid Date') return false;
-
-            return dateInput === formatedDate;
-        };
         return {
+            hideModal,
             schema,
             modalVisible,
             onSubmit,
             errorMessage,
+            successModalVisible,
+            loginModalVisible
         };
     },
 });

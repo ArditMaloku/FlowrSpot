@@ -1,0 +1,38 @@
+<div class="Login">
+    <modal-component
+        v-if="modalVisible"
+        @clickOutside="$emit('hideModal')"
+        otherClasses="Login"
+    >
+        <template v-slot:header>
+            <h1>Welcome Back</h1>
+        </template>
+        <template v-slot:body>
+            <Form class="Login__form" @submit="onSubmit" :validation-schema="schema">
+                <input-component name="email" type="email" label="Email Address" />
+                <input-component name="password" type="password" label="Password" />
+
+                <div class="Login__errorMessage" v-if="errorMessage">{{ errorMessage }}</div>
+
+                <button-component type="submit" class="Login__button" buttonText="Login to your Account" />
+            </Form>
+        </template>
+    </modal-component>
+
+    <modal-component v-if="successModalVisible" @clickOutside="successModalVisible = false">
+        <template v-slot:header>
+            <h1>Congratulations! You have successfully logged into FlowrSpot!</h1>
+        </template>
+        <template v-slot:body>
+            <div class="Login__successButtons">
+                <button-component buttonText="OK" @click="successModalVisible = false" />
+                <button-component
+                    buttonText="PROFILE"
+                    @click="(profileModalVisible = true), (successModalVisible = false)"
+                />
+            </div>
+        </template>
+    </modal-component>
+
+    <user-info-modal-component :modalVisible="profileModalVisible" @hideModal="profileModalVisible = false" />
+</div>
