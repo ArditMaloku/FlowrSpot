@@ -8,6 +8,14 @@
             alt="hamburger"
             class="Navbar__hamburger"
             @click="showMenu = !showMenu"
+            v-if="!showMenu"
+        />
+        <img
+            src="@/assets/icons/pl-icon-close.svg"
+            alt="hamburger"
+            class="Navbar__hamburger"
+            @click="showMenu = !showMenu"
+            v-if="showMenu"
         />
         <ul class="Navbar__list Navbar__listActive" v-if="showMenu">
             <li>Flowers</li>
@@ -15,8 +23,10 @@
             <li>Favorites</li>
             <div class="Navbar__userProfile" :class="{ 'displayNone': $store.state.users.user !== null }" v-if="true">
                 <li>
-                    <a @click="loginModalVisible = true" class="Login__text" buttonText="Login to your Account">Login</a>
-                    <login-component :modalVisible="loginModalVisible" @hideModal="loginModalVisible = false"/>
+                    <a @click="loginModalVisible = true" class="Login__text" buttonText="Login to your Account"
+                        >Login</a
+                    >
+                    <login-component :modalVisible="loginModalVisible" @hideModal="loginModalVisible = false" />
                 </li>
                 <li>
                     <signup-component />
