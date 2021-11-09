@@ -3,6 +3,10 @@
         <div class="Modal__mask">
             <div class="Modal__wrapper">
                 <div class="Modal__container" ref="modalRef">
+                    <div class="Modal__close" @click="$emit('clickOutside')" v-if="closeIconVisible">
+                        <img src="@/assets/icons/pl-icon-close.svg" alt="close" />
+                    </div>
+
                     <div class="Modal__header" v-if="$slots.header">
                         <slot name="header"></slot>
                     </div>

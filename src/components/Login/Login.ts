@@ -24,8 +24,8 @@ export default defineComponent({
     props: {
         modalVisible: {
             type: Boolean,
-            required: true
-        }
+            required: true,
+        },
     },
     emits: ['hideModal'],
     setup(_, { emit }) {
@@ -39,17 +39,21 @@ export default defineComponent({
         const successModalVisible = ref(false);
         const profileModalVisible = ref(false);
         const errorMessage = ref(false);
+        const formSubmitted = ref(false);
 
         const onSubmit = (form: LoginPayloadInterface) => {
             errorMessage.value = false;
+            formSubmitted.value = true;
             store
                 .dispatch(StoreNames.USERS + '/' + UserActionTypes.LOGIN, form)
                 .then((response: LoginSignupResponseInterface) => {
                     emit('hideModal');
                     successModalVisible.value = true;
+                    formSubmitted.value = false;
                 })
                 .catch((error: any) => {
                     errorMessage.value = error.response.data.error;
+                    formSubmitted.value = false;
                 });
         };
 
@@ -59,6 +63,7 @@ export default defineComponent({
             onSubmit,
             schema,
             errorMessage,
+            formSubmitted,
         };
     },
 });

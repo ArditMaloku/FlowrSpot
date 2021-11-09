@@ -5,7 +5,14 @@ import { onClickOutside } from '@vueuse/core';
 export default defineComponent({
     name: 'ModalComponent',
     props: {
-        otherClasses: String,
+        otherClasses: {
+            type: String,
+            required: false,
+        },
+        closeIconVisible: {
+            type: Boolean,
+            required: true,
+        },
     },
     emits: ['clickOutside'],
     setup(_, { emit }) {

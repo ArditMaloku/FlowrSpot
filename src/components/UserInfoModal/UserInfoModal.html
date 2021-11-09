@@ -1,4 +1,9 @@
-<modal-component v-if="modalVisible" @clickOutside="$emit('hideModal')" otherClasses="UserInfo">
+<modal-component
+    v-if="modalVisible"
+    @clickOutside="$emit('hideModal')"
+    :closeIconVisible="true"
+    otherClasses="UserInfo"
+>
     <template v-slot:body>
         <div class="UserInfo__content">
             <div className="UserInfo__avatar">
@@ -30,7 +35,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <button-component class="UserInfo__logout" :buttonText="'Logout'" @click="logout" />
+                <button-component class="UserInfo__logout" :buttonText="'Logout'" @click="logout" :loading="loading" />
             </div>
         </div>
     </template>

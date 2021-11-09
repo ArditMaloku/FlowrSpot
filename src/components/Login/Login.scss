@@ -5,7 +5,8 @@
         width: 440px;
     }
     &__successButtons {
-        display: flex-end;
+        display: flex;
+        justify-content: flex-end;
         button:first-child {
             margin-right: 15px;
         }

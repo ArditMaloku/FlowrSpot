@@ -1,4 +1,4 @@
-import { computed, reactive } from '@vue/reactivity';
+import { computed, reactive, ref } from '@vue/reactivity';
 import { defineComponent } from '@vue/runtime-core';
 import { useStore } from 'vuex';
 import ModalComponent from '../shared/Modal/index.vue';
@@ -25,6 +25,7 @@ export default defineComponent({
     setup(_, { emit }) {
         const store = useStore();
         const user = computed(() => store.state.users.user);
+        const loading = ref(false);
 
         const form = reactive<UserInterface>({
             email: '',
@@ -36,6 +37,7 @@ export default defineComponent({
 
         const logout = () => {
             emit('hideModal');
+            loading.value = true;
             store.commit(StoreNames.USERS + '/' + UserMutationType.SET_USER, null);
             localStorage.removeItem('authToken');
         };
@@ -44,6 +46,7 @@ export default defineComponent({
             form,
             user,
             logout,
+            loading,
         };
     },
 });

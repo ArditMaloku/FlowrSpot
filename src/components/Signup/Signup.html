@@ -1,7 +1,7 @@
 <div class="Signup">
     <button-component @click="modalVisible = true" class="Signup__button" :buttonText="'New Account'" />
 
-    <modal-component v-if="modalVisible" @clickOutside="hideModal()" otherClasses="Signup">
+    <modal-component v-if="modalVisible" @clickOutside="hideModal()" otherClasses="Signup" :closeIconVisible="false">
         <template v-slot:header>
             <h1>Create an Account</h1>
         </template>
@@ -15,12 +15,12 @@
 
                 <div class="Signup__errorMessage" v-if="errorMessage">{{ errorMessage }}</div>
 
-                <button-component class="Signup__createAccountButton" :buttonText="'Create Account'" />
+                <button-component class="Signup__createAccountButton" :buttonText="'Create Account'" :loading="formSubmitted"/>
             </Form>
         </template>
     </modal-component>
 
-    <modal-component v-if="successModalVisible" @clickOutside="successModalVisible = false">
+    <modal-component v-if="successModalVisible" @clickOutside="successModalVisible = false" :closeIconVisible="false">
         <template v-slot:header>
             <h1>Congratulations! You have successfully signed up for FlowrSpot!</h1>
         </template>
@@ -31,5 +31,5 @@
         </template>
     </modal-component>
 
-    <login-component :modalVisible="loginModalVisible" @hideModal="loginModalVisible = false"/>
+    <login-component :modalVisible="loginModalVisible" @hideModal="loginModalVisible = false" />
 </div>

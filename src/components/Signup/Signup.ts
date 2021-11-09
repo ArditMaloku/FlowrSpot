@@ -48,17 +48,21 @@ export default defineComponent({
         const errorMessage = ref(false);
         const successModalVisible = ref(false);
         const loginModalVisible = ref(false);
+        const formSubmitted = ref(false);
 
         const onSubmit = (form: UserInterface) => {
             errorMessage.value = false;
+            formSubmitted.value = true;
 
             store.dispatch(StoreNames.USERS + '/' + UserActionTypes.SIGNUP, form)
             .then((response: LoginSignupResponseInterface) => {
                 modalVisible.value = false;
                 successModalVisible.value = true;
+                formSubmitted.value = false;
             })
             .catch((error: any) => {
                 errorMessage.value = error.response.data.error;
+                formSubmitted.value = false;
             });
         };
 
@@ -74,7 +78,8 @@ export default defineComponent({
             onSubmit,
             errorMessage,
             successModalVisible,
-            loginModalVisible
+            loginModalVisible,
+            formSubmitted
         };
     },
 });

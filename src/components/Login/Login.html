@@ -1,6 +1,7 @@
 <div class="Login">
     <modal-component
         v-if="modalVisible"
+        :closeIconVisible="false"
         @clickOutside="$emit('hideModal')"
         otherClasses="Login"
     >
@@ -14,12 +15,12 @@
 
                 <div class="Login__errorMessage" v-if="errorMessage">{{ errorMessage }}</div>
 
-                <button-component type="submit" class="Login__button" buttonText="Login to your Account" />
+                <button-component type="submit" class="Login__button" buttonText="Login to your Account" :loading="formSubmitted"/>
             </Form>
         </template>
     </modal-component>
 
-    <modal-component v-if="successModalVisible" @clickOutside="successModalVisible = false">
+    <modal-component v-if="successModalVisible" @clickOutside="successModalVisible = false" :closeIconVisible="false">
         <template v-slot:header>
             <h1>Congratulations! You have successfully logged into FlowrSpot!</h1>
         </template>
