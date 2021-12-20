@@ -11,7 +11,7 @@ import * as Yup from 'yup';
 import StoreNames from '@/store/enums/StoreNames';
 import { UserActionTypes } from '@/store/modules/users/actions';
 import LoginSignupResponseInterface from '@/types/LoginSignupResponseInterface';
-import ValidateDateMixin from "@/mixins/ValidateDateMixin";
+import ValidateDateMixin from '@/mixins/ValidateDateMixin';
 
 export default defineComponent({
     name: 'SignupComponent',
@@ -25,7 +25,7 @@ export default defineComponent({
     mixins: [ValidateDateMixin],
     setup() {
         const store = useStore();
-        
+
         const schema = Yup.object().shape({
             first_name: Yup.string().required('First name is required'),
             last_name: Yup.string().required('Last name is required'),
@@ -54,22 +54,23 @@ export default defineComponent({
             errorMessage.value = false;
             formSubmitted.value = true;
 
-            store.dispatch(StoreNames.USERS + '/' + UserActionTypes.SIGNUP, form)
-            .then((response: LoginSignupResponseInterface) => {
-                modalVisible.value = false;
-                successModalVisible.value = true;
-                formSubmitted.value = false;
-            })
-            .catch((error: any) => {
-                errorMessage.value = error.response.data.error;
-                formSubmitted.value = false;
-            });
+            store
+                .dispatch(StoreNames.USERS + '/' + UserActionTypes.SIGNUP, form)
+                .then((response: LoginSignupResponseInterface) => {
+                    modalVisible.value = false;
+                    successModalVisible.value = true;
+                    formSubmitted.value = false;
+                })
+                .catch((error: any) => {
+                    errorMessage.value = error.response.data.error;
+                    formSubmitted.value = false;
+                });
         };
 
         const hideModal = () => {
             modalVisible.value = false;
             errorMessage.value = false;
-        }
+        };
 
         return {
             hideModal,
@@ -79,7 +80,7 @@ export default defineComponent({
             errorMessage,
             successModalVisible,
             loginModalVisible,
-            formSubmitted
+            formSubmitted,
         };
     },
 });

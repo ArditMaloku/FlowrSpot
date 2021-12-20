@@ -1,4 +1,4 @@
-import { defineComponent, onMounted, watch } from '@vue/runtime-core';
+import { defineComponent, onMounted, watch, onUnmounted } from '@vue/runtime-core';
 import LoginComponent from '../Login/index.vue';
 import UserInfoComponent from '../UserInfo/index.vue';
 import SignupComponent from '../Signup/index.vue';
@@ -13,25 +13,36 @@ export default defineComponent({
     },
     setup() {
         const showMenu = ref(false);
+        const isMobile = ref(false);
         const loginModalVisible = ref(false);
 
         onMounted(() => {
             if (window.innerWidth > 767) {
                 showMenu.value = true;
+            } else {
+                isMobile.value = true;
             }
 
-            window.addEventListener('resize', function () {
-                if (window.innerWidth > 767) {
-                    showMenu.value = true;
-                } else {
-                    showMenu.value = false;
-                }
-            });
+            window.addEventListener('resize', resizeHandler);
         });
 
-        watch(showMenu, (currentValue) => {
+        onUnmounted(() => {
+            window.removeEventListener('resize', resizeHandler);
+        });
+
+        const resizeHandler = () => {
+            if (window.innerWidth > 767) {
+                showMenu.value = true;
+                isMobile.value = false;
+            } else {
+                isMobile.value = true;
+                showMenu.value = false;
+            }
+        };
+
+        watch(showMenu, (currentValue: boolean) => {
             if (currentValue) {
-                document.documentElement.style.overflow = 'hidden';
+                if (isMobile.value) document.documentElement.style.overflow = 'hidden';
             } else {
                 document.documentElement.style.overflow = 'auto';
             }

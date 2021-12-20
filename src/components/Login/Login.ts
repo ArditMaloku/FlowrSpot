@@ -57,6 +57,11 @@ export default defineComponent({
                 });
         };
 
+        const closeModalAndClearErrorMessage = () => {
+            emit('hideModal');
+            errorMessage.value = false;
+        };
+
         return {
             successModalVisible,
             profileModalVisible,
@@ -64,6 +69,7 @@ export default defineComponent({
             schema,
             errorMessage,
             formSubmitted,
+            closeModalAndClearErrorMessage,
         };
     },
 });

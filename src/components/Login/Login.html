@@ -2,7 +2,7 @@
     <modal-component
         v-if="modalVisible"
         :closeIconVisible="false"
-        @clickOutside="$emit('hideModal')"
+        @clickOutside="closeModalAndClearErrorMessage()"
         otherClasses="Login"
     >
         <template v-slot:header>
@@ -15,7 +15,12 @@
 
                 <div class="Login__errorMessage" v-if="errorMessage">{{ errorMessage }}</div>
 
-                <button-component type="submit" class="Login__button" buttonText="Login to your Account" :loading="formSubmitted"/>
+                <button-component
+                    type="submit"
+                    class="Login__button"
+                    buttonText="Login to your Account"
+                    :loading="formSubmitted"
+                />
             </Form>
         </template>
     </modal-component>

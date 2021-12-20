@@ -1,6 +1,6 @@
 import FlowerInterface from './FlowerInterface';
 
 export default interface FlowerResponse {
-    flowers: Array<FlowerInterface>;
+    flowers: FlowerInterface[];
     meta: any;
 }

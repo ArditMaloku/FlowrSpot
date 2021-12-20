@@ -1,5 +1,12 @@
 <div class="Flowers">
-    <div v-for="flower in flowers" :key="flower.id" class="Flower" :class="flower.favorite ? 'Flower__favorite' : ''">
+    <div
+        v-for="flower in filteredFlowers"
+        :key="flower.id"
+        class="Flower"
+        :class="flower.favorite ? 'Flower__favorite' : ''"
+    >
         <FlowerItem :flower="flower" />
     </div>
 </div>
+
+<div class="Flowers__message" v-if="!filteredFlowers.length">Not results found! Try different keyword</div>
